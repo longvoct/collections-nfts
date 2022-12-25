@@ -31,7 +31,6 @@ const AllNFTs = ({ pageRefs }) => {
           `${baseURL}/api/nfts?includeOwner=1&limit=12&page=${pQuery + 1}`
         );
         setNfts(res?.data?.nfts);
-        console.log("res?.data?.nfts: ", res?.data?.nfts);
       } catch (error) {
         console.log(error);
       }

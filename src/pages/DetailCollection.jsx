@@ -56,7 +56,6 @@ const DetailCollection = () => {
           `${baseURL}/api/nfts?collectionId=${slugValue}&includeOwner=1`
         );
         const list = nftsItem?.data.nfts;
-        console.log(list);
         setNfts(list);
       } catch (error) {
         console.log(error);
