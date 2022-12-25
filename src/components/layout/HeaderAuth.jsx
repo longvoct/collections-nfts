@@ -225,7 +225,21 @@ const HeaderAuth = ({ handleSignOut, userId, ...props }) => {
                           onClick={() => navigate("/create")}
                           className="text-sm hover:bg-[#c084fc] font-[500] hover:text-[white] transition-all cursor-pointer w-full px-3 py-4 rounded-md"
                         >
-                          Create
+                          <div className="flex gap-x-4">
+                            <span>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                fill="currentColor"
+                                class="bi bi-plus-circle-fill"
+                                viewBox="0 0 16 16"
+                              >
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                              </svg>
+                            </span>
+                            <span>Create</span>
+                          </div>
                         </div>
                       )}
                       <NavLink
@@ -239,13 +253,49 @@ const HeaderAuth = ({ handleSignOut, userId, ...props }) => {
                         }}
                         className="w-full px-3 text-sm py-4 rounded-md hover:bg-slate-500 hover:bg-opacity-10 transition-all cursor-pointer font-[500] "
                       >
-                        <div>My Profile</div>
+                        <div className="flex items-center gap-x-4">
+                          <span>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="20"
+                              fill="currentColor"
+                              class="bi bi-person-bounding-box"
+                              viewBox="0 0 16 16"
+                            >
+                              <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
+                              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                            </svg>
+                          </span>
+                          <span>My Profile</span>
+                        </div>
                       </NavLink>
                       <div
                         className="hover:bg-slate-500 text-sm hover:bg-opacity-10 transition-all cursor-pointer w-full px-3 py-4 rounded-md font-[500]"
                         onClick={handleSignOut}
                       >
-                        Sign Out
+                        <div className="flex items-center gap-x-4">
+                          <span>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="20"
+                              fill="currentColor"
+                              class="bi bi-box-arrow-left"
+                              viewBox="0 0 16 16"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"
+                              />
+                              <path
+                                fill-rule="evenodd"
+                                d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
+                              />
+                            </svg>
+                          </span>
+                          <span>Sign Out</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -288,7 +338,7 @@ const HeaderAuth = ({ handleSignOut, userId, ...props }) => {
                   </div>
                   {showNotif === true ? (
                     <div className="transition-all duration-100 absolute top-[150%] rounded-lg -right-[130px] w-[360px] p-3 shadow-lg bg-[#ffffff] text-[#141418] flex flex-col">
-                      <span className="px-3 font-bold">Notification</span>
+                      <span className="px-3 font-bold">Notification!</span>
                       {notifications.length > 0 &&
                         notifications
                           .slice(0)
