@@ -16,6 +16,7 @@ import { useAuthentication } from "../config/auth-context";
 import WalletsPage from "./WalletsPage";
 import HandleBtnNft from "../components/layout/HandleBtnNft";
 import avatarUserImage from "../assets/userImages/user.jpg";
+import slugify from "slugify";
 
 const CategoryDetailStyles = styled.div`
   .linear-property {
@@ -178,11 +179,17 @@ const CategoryDetail = () => {
                     </div>
                   </div>
                   <div className="collection flex gap-x-[10px] items-center">
-                    <img
-                      src={`${baseURL}/storage/logoImages/${nft?.collection?.url_image_logo}`}
-                      alt=""
-                      className="w-[60px] h-[60px] object-cover rounded-full"
-                    />
+                    <Link
+                      to={`/collection/${slugify(nft?.collection.name)}&query=${
+                        nft?.collection.id
+                      }`}
+                    >
+                      <img
+                        src={`${baseURL}/storage/logoImages/${nft?.collection?.url_image_logo}`}
+                        alt=""
+                        className="w-[60px] h-[60px] object-cover rounded-full"
+                      />
+                    </Link>
                     <div className="collection  flex flex-col">
                       <span className="font-[600]">Collection</span>
                       <span className="text-[15px]">
