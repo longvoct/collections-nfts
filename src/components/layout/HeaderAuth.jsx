@@ -11,6 +11,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import useAuth from "../../hooks/useAuth";
 import AuthUser from "../../config/AuthUser";
 import axios from "axios";
+import { useReducer } from "react";
 const ListLink = [
   {
     id: 1,
@@ -79,6 +80,8 @@ const HeaderAuth = ({ handleSignOut, userId, ...props }) => {
   const { userName, userType, userImage } = useAuth();
   const { show, setShow, nodeRef: nodeRefUser } = useClickOutSide();
   const { http, token } = AuthUser();
+  const [countNotSeen, setCountNotSeen] = useState();
+  const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const {
     show: showNotif,
@@ -93,33 +96,38 @@ const HeaderAuth = ({ handleSignOut, userId, ...props }) => {
         try {
           const res = await http?.get(`/notifies?user_id=${userId}`);
           setShowNotification(res?.data.notifies);
+          console.log(res?.data.notifies);
+          setCountNotSeen(
+            res?.data.notifies?.filter((item) => item.seen === 0).length
+          );
+          forceUpdate();
         } catch (error) {}
       }
     })();
-  }, [userId]);
+  }, [userId, reducerValue]);
 
   const handleMarkAsRead = (id, index) => {
     (async () => {
-      if (userId) {
-        await axios
-          .post(
-            `${baseURL}/api/notifies/${id}?_method=PUT`,
-            {
-              user_id: userId,
-              notify: notifications[index]?.notify,
-              seen: parseInt(1),
+      await axios
+        .post(
+          `${baseURL}/api/notifies/${id}?_method=PUT`,
+          {
+            user_id: notifications[notifications.length - 1 - index].user_id,
+            notify: notifications[notifications.length - 1 - index]?.notify,
+            seen: parseInt(1),
+          },
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              authorization: `Bearer ${token}`,
             },
-            {
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then((res) => {})
-          .catch((err) => {});
-      }
+          }
+        )
+        .then((res) => {})
+        .catch((err) => {
+          console.log("err: ", err);
+        });
     })();
   };
 
@@ -321,23 +329,15 @@ const HeaderAuth = ({ handleSignOut, userId, ...props }) => {
                     {notifications?.length > 0 && (
                       <div
                         className={`flex items-center justify-center w-[18px] h-[18px] rounded-full bg-red-500 absolute -top-[5px] -right-[5px] text-[12px] ${
-                          notifications?.filter((item) => item.seen === 0)
-                            .length === 0
-                            ? "hidden"
-                            : "block"
+                          countNotSeen === 0 ? "hidden" : "block"
                         }`}
                       >
-                        <span className="px-3 font-[400]">
-                          {
-                            notifications?.filter((item) => item.seen === 0)
-                              .length
-                          }
-                        </span>
+                        <span className="px-3 font-[400]">{countNotSeen}</span>
                       </div>
                     )}
                   </div>
                   {showNotif === true ? (
-                    <div className="transition-all duration-100 absolute top-[150%] rounded-lg -right-[130px] w-[360px] p-3 shadow-lg bg-[#ffffff] text-[#141418] flex flex-col">
+                    <div className="transition-all duration-100 absolute top-[150%] rounded-lg -right-[130px] w-[360px] max-h-[450px] overflow-auto p-3 shadow-lg bg-[#ffffff] text-[#141418] flex flex-col">
                       <span className="px-3 font-bold">Notification!</span>
                       {notifications.length > 0 &&
                         notifications
@@ -359,7 +359,9 @@ const HeaderAuth = ({ handleSignOut, userId, ...props }) => {
                                 {item.notify.split("\n")[0]}
                               </span>
                               <button
-                                onClick={handleMarkAsRead(item.id, index)}
+                                onClick={() => {
+                                  handleMarkAsRead(item.id, index);
+                                }}
                                 className="inline-flex items-center justify-center font-sans font-semibold tracking-wide text-white rounded-full"
                               >
                                 {item.seen === 0 ? (
