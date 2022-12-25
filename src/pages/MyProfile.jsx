@@ -68,12 +68,12 @@ const MyProfile = () => {
   useEffect(() => {
     (async () => {
       const res = await axios.get(
-        `${baseURL}/api/nfts?includeOwner=1&limit=1000`
+        `${baseURL}/api/nfts?includeOwner=1&includeCreator=1&limit=1000`
       );
       const nfts = res?.data?.nfts;
       setNfts(nfts);
       const countImagesTemp = nfts?.filter(
-        (item) => item.owner_id === userId
+        (item) => item.owner_id === userId || item.creator_id === userId
       ).length;
       setCountImages(countImagesTemp);
     })();

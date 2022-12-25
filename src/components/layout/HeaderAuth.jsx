@@ -380,6 +380,11 @@ const HeaderAuth = ({ handleSignOut, userId, ...props }) => {
                               </button>
                             </div>
                           ))}
+                      {notifications.length === 0 && (
+                        <span className="p-3 text-[14px]">
+                          No new notifications{" "}
+                        </span>
+                      )}
                     </div>
                   ) : (
                     <div className="absolute"></div>

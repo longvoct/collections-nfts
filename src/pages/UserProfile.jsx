@@ -47,15 +47,18 @@ const UserProfile = () => {
   const navigate = useNavigate();
   let params = new URLSearchParams(slug);
   let slugValue = params.get("query");
+  console.log("slugValue: ", slugValue);
 
   useEffect(() => {
     (async () => {
       const res = await axios.get(`${baseURL}/api/users/${slugValue}`);
       const resNft = await axios.get(
-        `${baseURL}/api/nfts?includeOwner=1&includeCreator=1`
+        `${baseURL}/api/nfts?includeOwner=1&includeCreator=1&limit=1000`
       );
       setUser(res?.data?.user);
+      console.log("res?.data?.user: ", res?.data?.user);
       setNfts(resNft?.data.nfts);
+      console.log("resNft?.data.nfts: ", resNft?.data.nfts);
     })();
   }, [slugValue]);
 
@@ -63,9 +66,9 @@ const UserProfile = () => {
     (async () => {
       const res = await axios.get(`${baseURL}/api/collections`);
       const list = res?.data.collections;
+
       const item = list.filter((item) => item.creator_id === slugValue);
       setMyCollection(item);
-      console.log("item: ", item);
     })();
   }, [slugValue]);
 
