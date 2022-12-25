@@ -57,8 +57,8 @@ const SearchAllItem = () => {
 
         <div className="mt-10">
           {allCollections?.length >= 3 ? (
-            allCollections.map((card) => (
-              <SliderCustom perPage={3}>
+            <SliderCustom perPage={3}>
+              {allCollections.map((card) => (
                 <SplideSlide key={card.id}>
                   <CardCollection
                     id={card?.id}
@@ -67,8 +67,8 @@ const SearchAllItem = () => {
                     name={card?.name}
                   />
                 </SplideSlide>
-              </SliderCustom>
-            ))
+              ))}
+            </SliderCustom>
           ) : (
             <div className="grid grid-cols-3">
               {allCollections.map((card) => (
@@ -84,7 +84,7 @@ const SearchAllItem = () => {
           )}
         </div>
 
-        <div className="mt-20">
+        <div className="mt-40">
           {allNfts?.length > 0 && (
             <div className="grid grid-cols-4 gap-[50px]">
               {allNfts?.length > 0 &&
