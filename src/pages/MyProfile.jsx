@@ -71,12 +71,10 @@ const MyProfile = () => {
         `${baseURL}/api/nfts?includeOwner=1&limit=1000`
       );
       const nfts = res?.data?.nfts;
-      console.log(nfts);
       setNfts(nfts);
       const countImagesTemp = nfts?.filter(
         (item) => item.owner_id === userId
       ).length;
-      console.log("countImagesTemp : ", countImagesTemp);
       setCountImages(countImagesTemp);
     })();
   }, [userId]);

@@ -96,7 +96,6 @@ const HeaderAuth = ({ handleSignOut, userId, ...props }) => {
         try {
           const res = await http?.get(`/notifies?user_id=${userId}`);
           setShowNotification(res?.data.notifies);
-          console.log(res?.data.notifies);
           setCountNotSeen(
             res?.data.notifies?.filter((item) => item.seen === 0).length
           );
