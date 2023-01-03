@@ -75,11 +75,7 @@ const Card = ({
                     {name}
                   </span>
                 </div>
-                <Link to={`/profile/${owner}&query=${id}`}>
-                  <span className=" cursor-pointer leading-[16px]">
-                    {owner}
-                  </span>
-                </Link>
+                <span className=" cursor-pointer leading-[16px]">{owner}</span>
               </div>
               <div className="top-right flex gap-[5px] font-bold">
                 {crypto === 1 && (
